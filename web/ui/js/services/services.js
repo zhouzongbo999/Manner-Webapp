@@ -58,8 +58,8 @@ TM.factory('RESTService',
 );
 
 //items
-services.factory('Items', [ '$resource','TM.config',function($resource,config) {
-    return $resource(config.RESTAPIBASEURL+'items', {}, {
+TM.factory('Items', [ '$resource','TM.config',function($resource,config) {
+    return $resource( config.RESTAPIBASEURL+'items', {}, {
         'query' : {
             method : 'GET',
             isArray : false,
@@ -70,8 +70,8 @@ services.factory('Items', [ '$resource','TM.config',function($resource,config) {
     });
 } ]);
 //Users
-services.factory('Users', [ '$resource','TM.config',function($resource,config) {
-    return $resource(config.RESTAPIBASEURL+'users', {}, {
+TM.factory('Users', [ '$resource','TM.config',function($resource,config) {
+    return $resource( config.RESTAPIBASEURL+'users', {}, {
         'query' : {
             method : 'GET',
             isArray : false,
@@ -81,7 +81,32 @@ services.factory('Users', [ '$resource','TM.config',function($resource,config) {
         'update' : {}
     });
 } ]);
-
+//User
+mannerServices.factory('User', [ '$resource', function($resource) {
+	return $resource('http://localhost:8080/manner-ci/api/users', {}, {
+		'query' : {
+			url:'http://localhost:8080/manner-ci/api/users/:userId',
+			method : 'GET',
+			cache : false
+		},
+		'save' : {
+			url:'http://localhost:8080/manner-ci/api/users/:userId',
+			method:'POST'
+		},
+		'delete':{
+			url:'http://localhost:8080/manner-ci/api/users/:userId',
+			method:'DELETE',
+			cache:false
+		},
+		'update':{
+			url:'http://localhost:8080/manner-ci/api/users/:userId',
+			method:'PUT',
+			params:{
+			},
+			cache:false
+		},
+	});
+} ]);
 
 
 
